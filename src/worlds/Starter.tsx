@@ -33,6 +33,14 @@ const Starter = () => {
           framed
         />
       </Interactable>}
+      {isAuthenticated &&
+      <Image
+        src="https://usa.visa.com/content/dam/VCOM/regional/na/us/Solutions/visa-crypto-opportunities-800x450.jpg"
+        size={2}
+        position={[0, 1, 4]}
+        rotation={[0, Math.PI, 0]}
+        framed
+      />}
       <Builder12 />
       <CloudySky color="white" />
       <TransparentFloor opacity={0.7} />
