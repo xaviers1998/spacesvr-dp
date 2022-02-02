@@ -5,7 +5,7 @@ const Starter = dynamic(import("worlds/Starter"), { ssr: false });
 
 export default function StarterPage() {
   return (
-  <MoralisProvider appId="GXQZy7vn40XUUm3QLvaO8Zzk4rXdm0HXMyZFstlH" serverUrl="https://hfsfolrhv6wl.usemoralis.com:2053/server">
+  <MoralisProvider appId="lDDXYagREnknCf9WxDm994rB9YcHiEfk767ehbna" serverUrl="https://ckb11ejzq8dp.grandmoralis.com:2053/server">
     <Starter />
   </MoralisProvider>
   );

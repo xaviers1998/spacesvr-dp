@@ -1,32 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Spinning, Floating, StandardEnvironment, Image, Interactable, Text } from "spacesvr";
 import TransparentFloor from "../ideas/TransparentFloor";
 import CloudySky from "../ideas/CloudySky";
 import Builder12 from "../ideas/Builder12";
-import { useMoralis } from "react-moralis";
+import FloatingOrb from "../ideas/FloatingOrb";
+import Dome from "ideas/Dome";
+import { useMoralis, useMoralisCloudFunction } from "react-moralis";
+
 
 
 const Starter = () => {
   const { authenticate, isAuthenticated, user, logout, isAuthenticating } = useMoralis();
+  const { fetch, data: isOwner } = useMoralisCloudFunction(
+    "isNFTOwner",
+    { autoFetch: false }
+  )
+
+  useEffect(() => {
+    fetch()
+  }, [user])
+
+  const [domeClosed, setDomeClosed] = useState(true);
 
   return (
     <StandardEnvironment>
       <ambientLight />
-      <group position={[0, 0, -4]}>
-        <Floating>
-          <Spinning xSpeed={0.2} ySpeed={0.4} zSpeed={0.3}>
-            <mesh>
-              <torusKnotBufferGeometry args={[1, 0.2]} />
-              <meshStandardMaterial color="blue" />
-            </mesh>
-          </Spinning>
-        </Floating>
-      </group>
+      {isOwner && isAuthenticated && 
+      <group position={[0.5, 0.8, 3]}>
+        <Interactable
+          onClick={() => setDomeClosed(prev => !prev)}
+        >
+          <FloatingOrb />
+        </Interactable>
+      </group>}
+      {domeClosed && 
+      <group position={[0.5, 0.8, 3]}>
+        <Dome />
+      </group>}
       {!isAuthenticated && !isAuthenticating && <Interactable
         onClick={() => authenticate()}
       >
         <Text
-          text="LOGIN"
+          text="CONNECT WALLET"
           vAlign="center" // vertical align relative to the y component
           hAlign="center" // horizontal align relative to the x component
           size={1.1} // scale
@@ -45,7 +60,8 @@ const Starter = () => {
           rotation={[0, Math.PI, 0]}
           color="red" // color
         />}
-      {isAuthenticated && <Interactable
+      {isAuthenticated && 
+      <Interactable
         onClick={() => logout()}
       >
         <Text
@@ -85,6 +101,27 @@ const Starter = () => {
         rotation={[0, Math.PI, 0]}
         color="black" // color
       />
+      </group>}
+      {isAuthenticated &&
+      <group>
+        <Text
+          text={"Owns NFT:"}
+          vAlign="center" // vertical align relative to the y component
+          hAlign="center" // horizontal align relative to the x component
+          size={1} // scale
+          position={[0.5, 0.7, 4.05]}
+          rotation={[0, Math.PI, 0]}
+          color="black" // color
+        />
+        <Text
+          text={isOwner ? "Yes" : "No"}
+          vAlign="center" // vertical align relative to the y component
+          hAlign="center" // horizontal align relative to the x component
+          size={1} // scale
+          position={[0, 0.7, 4.05]}
+          rotation={[0, Math.PI, 0]}
+          color="yellow" // color
+        />
       </group>}
       <Builder12 />
       <CloudySky color="white" />
