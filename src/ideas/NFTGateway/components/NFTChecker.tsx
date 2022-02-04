@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, Interactable, Image } from "spacesvr";
+import { Text, Interactable, Image, Floating } from "spacesvr";
 import { useMoralis, useMoralisCloudFunction } from "react-moralis";
 
 import Dome from "../../Dome";
@@ -67,19 +67,21 @@ export default function NFTChecker(props: NFTCheckerProps) {
       )}
       {!isAuthenticated && !isAuthenticating && (
         <group>
+          <Floating height={0.05} speed={1.5}>
           <Interactable onClick={() => authenticate()}>
             <Text
               text="METAMASK"
               vAlign="center" // vertical align relative to the y component
               hAlign="center" // horizontal align relative to the x component
-              size={0.8} // scale
-              position={[-0.9, 0, 0]}
+              size={0.6} // scale
+              position={[-0.9, 0, 0.01]}
               color="white" // color
             />
             <Media
               media="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
-              framed={false}
+              framed={true}
               position={[-0.9, 0, 0.05]}
+              scale={0.5}
             />
           </Interactable>
           <Interactable
@@ -94,16 +96,18 @@ export default function NFTChecker(props: NFTCheckerProps) {
               text="WALLETCONNECT"
               vAlign="center" // vertical align relative to the y component
               hAlign="center" // horizontal align relative to the x component
-              size={0.9} // scale
-              position={[0.7, 0, 0]}
+              size={0.6} // scale
+              position={[0.7, 0, 0.03]}
               color="black" // color
             />
             <Media
               media="https://i.imgur.com/6W0yKmv.png"
-              framed={false}
+              framed={true}
               position={[0.7, 0, 0.05]}
+              scale={0.5}
             />
           </Interactable>
+          </Floating>
         </group>
       )}
       {isAuthenticating && (
@@ -136,11 +140,11 @@ export default function NFTChecker(props: NFTCheckerProps) {
           />
         </group>
       )}
-      <Image
+      {isAuthenticated && <Image
         src="https://t3.ftcdn.net/jpg/02/88/89/90/360_F_288899075_TV8KKBLTOnG0Dby3IC61UCUeNiBK0puK.jpg"
         size={3}
         framed
-      />
+      />}
     </group>
   );
 }
