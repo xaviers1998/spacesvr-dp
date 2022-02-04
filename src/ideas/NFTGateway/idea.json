@@ -1,0 +1,15 @@
+{
+    "name": "NFT Gateway",
+    "schema": [
+      {
+        "name": "address",
+        "type": "address"
+      },
+      {
+        "name": "chain",
+        "type": "chain"
+      }
+    ],
+    "npm_dependencies": {}
+  }
+  
