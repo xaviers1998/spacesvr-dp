@@ -10,9 +10,14 @@ import { useMoralis, useMoralisCloudFunction } from "react-moralis";
 
 
 const Starter = () => {
+  const address = "0x4baceed4951f29537559d8e203f95ac673f6d8e2"; // school yard punks
+  const chain = "POLY";
   const { authenticate, isAuthenticated, user, logout, isAuthenticating } = useMoralis();
   const { fetch, data: isOwner } = useMoralisCloudFunction(
     "isNFTOwner",
+    {
+      chain, address
+    },
     { autoFetch: false }
   )
 
