@@ -31,7 +31,7 @@ const Starter = () => {
     <StandardEnvironment>
       <ambientLight />
       {isOwner && isAuthenticated && 
-      <group position={[0.5, 0.8, 3]}>
+      <group position={[0.5, 1.2, 4]}>
         <Interactable
           onClick={() => setDomeClosed(prev => !prev)}
         >
