@@ -4,6 +4,7 @@ import { useMoralis, useMoralisCloudFunction } from "react-moralis";
 
 import Dome from "../../Dome";
 import FloatingOrb from "../../FloatingOrb";
+import Media from "ideas/Media";
 
 export default function NFTChecker(props: NFTCheckerProps) {
   const address = props.address;
@@ -52,12 +53,10 @@ export default function NFTChecker(props: NFTCheckerProps) {
           />
         </group>
       )}
-      {!isAuthenticating && (
-        <Interactable
-          onClick={() => (isAuthenticated ? logout() : authenticate())}
-        >
+      {!isAuthenticating && isAuthenticated && (
+        <Interactable onClick={() => logout()}>
           <Text
-            text={isAuthenticated ? "DISCONNECT" : "CONNECT"}
+            text="DISCONNECT"
             vAlign="center" // vertical align relative to the y component
             hAlign="center" // horizontal align relative to the x component
             size={1.1} // scale
@@ -66,13 +65,54 @@ export default function NFTChecker(props: NFTCheckerProps) {
           />
         </Interactable>
       )}
+      {!isAuthenticated && !isAuthenticating && (
+        <group>
+          <Interactable onClick={() => authenticate()}>
+            <Text
+              text="METAMASK"
+              vAlign="center" // vertical align relative to the y component
+              hAlign="center" // horizontal align relative to the x component
+              size={0.8} // scale
+              position={[-0.9, 0, 0]}
+              color="white" // color
+            />
+            <Media
+              media="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
+              framed={false}
+              position={[-0.9, 0, 0.05]}
+            />
+          </Interactable>
+          <Interactable
+            onClick={() =>
+              authenticate({
+                provider: "walletconnect",
+                signingMessage: "Sign in to DropParty",
+              })
+            }
+          >
+            <Text
+              text="WALLETCONNECT"
+              vAlign="center" // vertical align relative to the y component
+              hAlign="center" // horizontal align relative to the x component
+              size={0.9} // scale
+              position={[0.7, 0, 0]}
+              color="black" // color
+            />
+            <Media
+              media="https://i.imgur.com/6W0yKmv.png"
+              framed={false}
+              position={[0.7, 0, 0.05]}
+            />
+          </Interactable>
+        </group>
+      )}
       {isAuthenticating && (
         <Text
           text="Please wait..."
           vAlign="center" // vertical align relative to the y component
           hAlign="center" // horizontal align relative to the x component
           size={1.1} // scale
-          position={[-0.9, 0, -0.05]}
+          position={[0, 0, -0.05]}
           color="red" // color
         />
       )}
