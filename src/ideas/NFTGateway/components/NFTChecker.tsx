@@ -9,6 +9,7 @@ import Media from "ideas/Media";
 export default function NFTChecker(props: NFTCheckerProps) {
   const address = props.address;
   const chain = props.chain;
+  const email = "xavier@dropparty.io";
 
   const { authenticate, isAuthenticated, user, logout, isAuthenticating } =
     useMoralis();
@@ -17,9 +18,12 @@ export default function NFTChecker(props: NFTCheckerProps) {
     {
       address,
       chain,
+      email,
     },
     { autoFetch: false }
   );
+
+  console.log(isOwner);
 
   const [domeClosed, setDomeClosed] = useState(true);
 
@@ -29,12 +33,12 @@ export default function NFTChecker(props: NFTCheckerProps) {
 
   return (
     <group name="nft-gateway">
-      {domeClosed && (
+      {!(isOwner == 2) && (
         <group>
           <Dome />
         </group>
       )}
-      {isOwner && isAuthenticated && (
+      {isOwner == 2 && isAuthenticated && (
         <group>
           <Interactable onClick={() => setDomeClosed((prev) => !prev)}>
             <FloatingOrb />
@@ -68,45 +72,45 @@ export default function NFTChecker(props: NFTCheckerProps) {
       {!isAuthenticated && !isAuthenticating && (
         <group>
           <Floating height={0.05} speed={1.5}>
-          <Interactable onClick={() => authenticate()}>
-            <Text
-              text="METAMASK"
-              vAlign="center" // vertical align relative to the y component
-              hAlign="center" // horizontal align relative to the x component
-              size={0.6} // scale
-              position={[-0.9, 0, 0.01]}
-              color="white" // color
-            />
-            <Media
-              media="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
-              framed={true}
-              position={[-0.9, 0, 0.05]}
-              scale={0.5}
-            />
-          </Interactable>
-          <Interactable
-            onClick={() =>
-              authenticate({
-                provider: "walletconnect",
-                signingMessage: "Sign in to DropParty",
-              })
-            }
-          >
-            <Text
-              text="WALLETCONNECT"
-              vAlign="center" // vertical align relative to the y component
-              hAlign="center" // horizontal align relative to the x component
-              size={0.6} // scale
-              position={[0.7, 0, 0.03]}
-              color="black" // color
-            />
-            <Media
-              media="https://i.imgur.com/6W0yKmv.png"
-              framed={true}
-              position={[0.7, 0, 0.05]}
-              scale={0.5}
-            />
-          </Interactable>
+            <Interactable onClick={() => authenticate()}>
+              <Text
+                text="METAMASK"
+                vAlign="center" // vertical align relative to the y component
+                hAlign="center" // horizontal align relative to the x component
+                size={0.6} // scale
+                position={[-0.9, 0, 0.01]}
+                color="white" // color
+              />
+              <Media
+                media="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
+                framed={true}
+                position={[-0.9, 0, 0.05]}
+                scale={0.5}
+              />
+            </Interactable>
+            <Interactable
+              onClick={() =>
+                authenticate({
+                  provider: "walletconnect",
+                  signingMessage: "Sign in to DropParty",
+                })
+              }
+            >
+              <Text
+                text="WALLETCONNECT"
+                vAlign="center" // vertical align relative to the y component
+                hAlign="center" // horizontal align relative to the x component
+                size={0.6} // scale
+                position={[0.7, 0, 0.03]}
+                color="black" // color
+              />
+              <Media
+                media="https://i.imgur.com/6W0yKmv.png"
+                framed={true}
+                position={[0.7, 0, 0.05]}
+                scale={0.5}
+              />
+            </Interactable>
           </Floating>
         </group>
       )}
@@ -131,7 +135,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
             color="black" // color
           />
           <Text
-            text={isOwner ? "Yes" : "No"}
+            text={(isOwner == 2 || isOwner == 3)  ? "Yes" : "No"}
             vAlign="center" // vertical align relative to the y component
             hAlign="center" // horizontal align relative to the x component
             size={1} // scale
@@ -140,11 +144,33 @@ export default function NFTChecker(props: NFTCheckerProps) {
           />
         </group>
       )}
-      {isAuthenticated && <Image
-        src="https://t3.ftcdn.net/jpg/02/88/89/90/360_F_288899075_TV8KKBLTOnG0Dby3IC61UCUeNiBK0puK.jpg"
-        size={3}
-        framed
-      />}
+      {isAuthenticated && (
+        <group>
+          <Text
+            text={"Subscribed:"}
+            vAlign="center" // vertical align relative to the y component
+            hAlign="center" // horizontal align relative to the x component
+            size={1} // scale
+            position={[0, 0.43, -0.05]}
+            color="black" // color
+          />
+          <Text
+            text={(isOwner == 2 || isOwner == 1) ? "Yes" : "No"}
+            vAlign="center" // vertical align relative to the y component
+            hAlign="center" // horizontal align relative to the x component
+            size={1} // scale
+            position={[0.5, 0.43, -0.05]}
+            color="yellow" // color
+          />
+        </group>
+      )}
+      {isAuthenticated && (
+        <Image
+          src="https://t3.ftcdn.net/jpg/02/88/89/90/360_F_288899075_TV8KKBLTOnG0Dby3IC61UCUeNiBK0puK.jpg"
+          size={3}
+          framed
+        />
+      )}
     </group>
   );
 }
