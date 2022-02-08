@@ -9,7 +9,8 @@ import Media from "ideas/Media";
 export default function NFTChecker(props: NFTCheckerProps) {
   const address = props.address;
   const chain = props.chain;
-  const email = "xavier@dropparty.io";
+  const email = "ryan@dropparty.io";
+  const Debugging = true;
 
   const { authenticate, isAuthenticated, user, logout, isAuthenticating } =
     useMoralis();
@@ -23,9 +24,10 @@ export default function NFTChecker(props: NFTCheckerProps) {
     { autoFetch: false }
   );
 
-  console.log(isOwner);
-
-  const [domeClosed, setDomeClosed] = useState(true);
+  // isOwner Values
+  // 1 --- Subscription: ACTIVE | NFT Owner: NO
+  // 2 --- Subscription: ACTIVE | NFT Owner: YES
+  // 3 --- Subscription: INACTIVE | NFT Owner: YES
 
   useEffect(() => {
     fetch();
@@ -37,37 +39,6 @@ export default function NFTChecker(props: NFTCheckerProps) {
         <group>
           <Dome />
         </group>
-      )}
-      {isOwner == 2 && isAuthenticated && (
-        <group>
-          <Interactable onClick={() => setDomeClosed((prev) => !prev)}>
-            <FloatingOrb />
-          </Interactable>
-        </group>
-      )}
-      {isAuthenticated && (
-        <group>
-          <Text
-            text={user?.get("ethAddress")}
-            vAlign="center" // vertical align relative to the y component
-            hAlign="center" // horizontal align relative to the x component
-            size={1} // scale
-            position={[0, 0.3, -0.05]}
-            color="black" // color
-          />
-        </group>
-      )}
-      {!isAuthenticating && isAuthenticated && (
-        <Interactable onClick={() => logout()}>
-          <Text
-            text="DISCONNECT"
-            vAlign="center" // vertical align relative to the y component
-            hAlign="center" // horizontal align relative to the x component
-            size={1.1} // scale
-            position={[-0.9, 0, -0.05]}
-            color="red" // color
-          />
-        </Interactable>
       )}
       {!isAuthenticated && !isAuthenticating && (
         <group>
@@ -124,7 +95,38 @@ export default function NFTChecker(props: NFTCheckerProps) {
           color="red" // color
         />
       )}
-      {isAuthenticated && (
+
+      {/* Debug Tools */}
+      {isOwner == 2 && isAuthenticated && Debugging && (
+        <group>
+          <FloatingOrb />
+        </group>
+      )}
+      {isAuthenticated && Debugging && (
+        <group>
+          <Text
+            text={user?.get("ethAddress")}
+            vAlign="center" // vertical align relative to the y component
+            hAlign="center" // horizontal align relative to the x component
+            size={1} // scale
+            position={[0, 0.3, -0.05]}
+            color="black" // color
+          />
+        </group>
+      )}
+      {!isAuthenticating && isAuthenticated && Debugging && (
+        <Interactable onClick={() => logout()}>
+          <Text
+            text="DISCONNECT"
+            vAlign="center" // vertical align relative to the y component
+            hAlign="center" // horizontal align relative to the x component
+            size={1.1} // scale
+            position={[-0.9, 0, -0.05]}
+            color="red" // color
+          />
+        </Interactable>
+      )}
+      {isAuthenticated && Debugging && (
         <group>
           <Text
             text={"Owns NFT:"}
@@ -135,7 +137,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
             color="black" // color
           />
           <Text
-            text={(isOwner == 2 || isOwner == 3)  ? "Yes" : "No"}
+            text={isOwner == 2 || isOwner == 3 ? "Yes" : "No"}
             vAlign="center" // vertical align relative to the y component
             hAlign="center" // horizontal align relative to the x component
             size={1} // scale
@@ -144,7 +146,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
           />
         </group>
       )}
-      {isAuthenticated && (
+      {isAuthenticated && Debugging && (
         <group>
           <Text
             text={"Subscribed:"}
@@ -155,7 +157,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
             color="black" // color
           />
           <Text
-            text={(isOwner == 2 || isOwner == 1) ? "Yes" : "No"}
+            text={isOwner == 2 || isOwner == 1 ? "Yes" : "No"}
             vAlign="center" // vertical align relative to the y component
             hAlign="center" // horizontal align relative to the x component
             size={1} // scale
@@ -164,7 +166,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
           />
         </group>
       )}
-      {isAuthenticated && (
+      {isAuthenticated && Debugging && (
         <Image
           src="https://t3.ftcdn.net/jpg/02/88/89/90/360_F_288899075_TV8KKBLTOnG0Dby3IC61UCUeNiBK0puK.jpg"
           size={3}
