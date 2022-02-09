@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Text, Interactable, Image, Floating } from "spacesvr";
 import { useMoralis, useMoralisCloudFunction } from "react-moralis";
 
@@ -6,7 +6,7 @@ import Dome from "../../Dome";
 import FloatingOrb from "../../FloatingOrb";
 import Media from "ideas/Media";
 
-export default function NFTChecker(props: NFTCheckerProps) {
+const NFTChecker = (props: { address: any; chain: any; }) => {
   const address = props.address;
   const chain = props.chain;
   const email = "ryan@dropparty.io";
@@ -176,3 +176,5 @@ export default function NFTChecker(props: NFTCheckerProps) {
     </group>
   );
 }
+
+export default NFTChecker;
