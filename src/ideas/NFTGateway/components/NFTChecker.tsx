@@ -80,7 +80,7 @@ const NFTChecker = (props: { address: any; chain: any }) => {
           </Interactable>
         </group>
       )}
-      {(isAuthenticating || !isAuthenticated) && (
+      {(isOwner !== 2) && (
         <Media
           media="https://t3.ftcdn.net/jpg/02/88/89/90/360_F_288899075_TV8KKBLTOnG0Dby3IC61UCUeNiBK0puK.jpg"
           framed
