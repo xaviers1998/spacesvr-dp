@@ -4,7 +4,7 @@ import { useMoralis, useMoralisCloudFunction } from "react-moralis";
 
 import Dome from "../../Dome";
 import FloatingOrb from "../../FloatingOrb";
-import Media from "ideas/Media";
+import Media from "ideas/MediaIdea";
 
 const NFTChecker = (props: { address: any; chain: any; }) => {
   const address = props.address;
@@ -173,6 +173,11 @@ const NFTChecker = (props: { address: any; chain: any; }) => {
           framed
         />
       )}
+      <Media
+      media="https://t3.ftcdn.net/jpg/02/88/89/90/360_F_288899075_TV8KKBLTOnG0Dby3IC61UCUeNiBK0puK.jpg"
+      framed
+      frameColor="black"
+      collision />
     </group>
   );
 }

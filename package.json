@@ -10,7 +10,6 @@
     "prettier": "prettier --list-different 'src/**/*.{js,jsx,ts,tsx,md}'"
   },
   "dependencies": {
-    "@react-three/cannon": "^4.6.1",
     "@react-three/drei": "7.0.6",
     "@react-three/fiber": "6.0.14",
     "@react-three/flex": "^0.7.0",
