@@ -12,7 +12,7 @@ export default function Initializer(props: InitializerProps) {
         chain = "ETH",
       } = props;
   return (
-    <MoralisProvider appId="lDDXYagREnknCf9WxDm994rB9YcHiEfk767ehbna" serverUrl="https://ckb11ejzq8dp.grandmoralis.com:2053/server">
+    <MoralisProvider appId="lDDXYagREnknCf9WxDm994rB9YcHiEfk767ehbna" serverUrl="https://ckb11ejzq8dp.grandmoralis.com:2053/server" initializeOnMount={false}>
         <NFTChecker address={address} chain={chain} />
     </MoralisProvider>
   );
