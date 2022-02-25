@@ -8,7 +8,6 @@ const NFTChecker = (props: { address: string; chain: string; media: string; }) =
   const address = props.address;
   const chain = props.chain;
   const media = props.media;
-  const email = "ryan@dropparty.io";
 
   const { authenticate, isAuthenticated, user, logout, isAuthenticating } =
     useMoralis();
@@ -18,7 +17,6 @@ const NFTChecker = (props: { address: string; chain: string; media: string; }) =
     {
       address,
       chain,
-      email,
     },
     { autoFetch: false }
   );
