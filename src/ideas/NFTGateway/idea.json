@@ -8,6 +8,10 @@
       {
         "name": "chain",
         "type": "chain"
+      },
+      {
+        "name": "media",
+        "type": "media"
       }
     ],
     "npm_dependencies": {}
