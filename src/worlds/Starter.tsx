@@ -1,7 +1,7 @@
 import { StandardEnvironment } from "spacesvr";
 import TransparentFloor from "../ideas/TransparentFloor";
 import CloudySky from "../ideas/CloudySky";
-import NFTGateway from "../ideas/NFTGateway";
+import NFTGateway from "../ideas/DropPartyNFTGatewayy";
 
 const Starter = () => {
   return (

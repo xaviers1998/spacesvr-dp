@@ -1,0 +1,45 @@
+{
+  "predecessor": "4bee8d89-9bb5-4238-8c83-95b098f88457",
+  "id": "15845828-642a-48e7-bcfd-7a65d2ba06bd",
+  "name": "Drop Party NFT Gateway",
+  "purpose": "exist. block users from entering a space without a token.",
+  "schema": [
+    {
+      "name": "position",
+      "type": "position"
+    },
+    {
+      "name": "rotation",
+      "type": "rotation"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean"
+    },
+    {
+      "name": "address",
+      "type": "string"
+    },
+    {
+      "name": "chain",
+      "type": "string"
+    },
+    {
+      "name": "wallOrSphere",
+      "type": "boolean"
+    },
+    {
+      "name": "barrierSize",
+      "type": "number"
+    },
+    {
+      "name": "background",
+      "type": "media"
+    }
+  ],
+  "npm_dependencies": {
+    "@walletconnect/web3-provider": "^1.7.1",
+    "react-moralis": "^1.3.1",
+    "moralis": "^1.3.2"
+  }
+}
