@@ -41,12 +41,12 @@ export default function NFTChecker(props: NFTCheckerProps) {
 
   const checkOwner = () => {
     const requestOptions = {
-      method: "POST",
-      headers: { "x-api-key": "LqnBbRoa566Tty7jUND9t9yKjvdJCAbx1ltWWjsS" },
+      method: "GET",
+      headers: { "x-api-key": "LqnBbRoa566Tty7jUND9t9yKjvdJCAbx1ltWWjsS" }
     };
 
     fetch(
-      "https://6pwq50at99.execute-api.us-east-2.amazonaws.com/partyGate?address=0x2769B116e44fB9eA698ea3B026B91C5103C37E80&nftAddress=0x4baceed4951f29537559d8e203f95ac673f6d8e2&chain=eth",
+      `https://6pwq50at99.execute-api.us-east-2.amazonaws.com/partyGate?address=${userAddress}&nftAddress=${address}&chain=eth`,
       requestOptions
     )
       .then((response) => console.log(response))
