@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { Interactable, Image } from "spacesvr";
+import { Text } from "@react-three/drei";
 
 const METAMASK_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png";
+
+const FONT_FILE =
+  "https://d27rt3a60hh1lx.cloudfront.net/fonts/Quicksand_Bold.otf";
 
 type NFTCheckerProps = {
   address: string;
@@ -16,6 +20,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
 
   const [isOwner, setIsOwner] = useState(false);
   const [userAddress, setUserAddress] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const connectMetaMask = async () => {
     if (window.ethereum) {
@@ -25,17 +30,14 @@ export default function NFTChecker(props: NFTCheckerProps) {
         setUserAddress(address);
         console.log(address);
       } catch (error) {
-        return {
-          connectedStatus: false,
-          status: "🦊 Connect to Metamask using the button on the top right.",
-        };
+        setErrorMessage(
+          "🦊 Connect to Metamask using the button on the top right."
+        );
       }
     } else {
-      return {
-        connectedStatus: false,
-        status:
-          "🦊 You must install Metamask into your browser: https://metamask.io/download.html",
-      };
+      setErrorMessage(
+        "🦊 You must install Metamask into your browser: https://metamask.io/download.html"
+      );
     }
   };
 
@@ -51,7 +53,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
     )
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
-    // setIsOwner(true);
+    setIsOwner(true);
   };
 
   useEffect(() => setOwner(isOwner), [isOwner]);
@@ -72,8 +74,11 @@ export default function NFTChecker(props: NFTCheckerProps) {
           </Interactable>
         </group>
       )}
-
-      {!isOwner && <Image src={media} framed scale={1.5} />}
+      {!isOwner && errorMessage && (
+        <Text font={FONT_FILE} fontSize={0.1} color="red" position-z={0.001}>
+          {errorMessage}
+        </Text>
+      )}
     </group>
   );
 }
