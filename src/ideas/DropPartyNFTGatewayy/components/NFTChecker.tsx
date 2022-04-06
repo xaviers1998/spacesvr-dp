@@ -44,20 +44,21 @@ export default function NFTChecker(props: NFTCheckerProps) {
   const checkOwner = () => {
     const requestOptions = {
       method: "GET",
-      headers: { "x-api-key": "LqnBbRoa566Tty7jUND9t9yKjvdJCAbx1ltWWjsS" }
+      headers: { "x-api-key": "LqnBbRoa566Tty7jUND9t9yKjvdJCAbx1ltWWjsS" },
     };
 
     fetch(
-      `https://6pwq50at99.execute-api.us-east-2.amazonaws.com/partyGate?address=${userAddress}&nftAddress=${address}&chain=eth`,
+      `https://6pwq50at99.execute-api.us-east-2.amazonaws.com/partyGate?address=${userAddress}&nftAddress=${address}&chain=${chain}`,
       requestOptions
     )
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
-    setIsOwner(true);
+      .then((response) => response.text())
+      .then((result) => setIsOwner(result))
+      .catch((error) => console.log("error", error));
   };
 
   useEffect(() => setOwner(isOwner), [isOwner]);
 
+  // Once user address is retrieved
   useEffect(() => userAddress && checkOwner(), [userAddress]);
 
   return (
