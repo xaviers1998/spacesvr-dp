@@ -21,6 +21,7 @@ export default function NFTChecker(props: NFTCheckerProps) {
   const [isOwner, setIsOwner] = useState(false);
   const [userAddress, setUserAddress] = useState();
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const connectMetaMask = async () => {
     if (window.ethereum) {
@@ -28,16 +29,12 @@ export default function NFTChecker(props: NFTCheckerProps) {
       try {
         const address = await window.ethereum.enable(); //connect Metamask
         setUserAddress(address);
-        console.log(address);
+        setIsLoading(true);
       } catch (error) {
-        setErrorMessage(
-          "🦊 Connect to Metamask using the button on the top right."
-        );
+        setErrorMessage("Unlock Metamask");
       }
     } else {
-      setErrorMessage(
-        "🦊 You must install Metamask into your browser: https://metamask.io/download.html"
-      );
+      setErrorMessage("You must install Metamask");
     }
   };
 
@@ -52,18 +49,21 @@ export default function NFTChecker(props: NFTCheckerProps) {
       requestOptions
     )
       .then((response) => response.text())
-      .then((result) => setIsOwner(result))
+      .then((result) => {
+        setIsOwner(result);
+        setIsLoading(false);
+      })
       .catch((error) => console.log("error", error));
   };
 
   useEffect(() => setOwner(isOwner), [isOwner]);
 
-  // Once user address is retrieved
+  // After user address is retrieved
   useEffect(() => userAddress && checkOwner(), [userAddress]);
 
   return (
     <group name="nft-checker">
-      {!isOwner && (
+      {!isOwner && !errorMessage && !isLoading && (
         <group name="wallets">
           <Interactable onClick={() => connectMetaMask()}>
             <Image
@@ -80,6 +80,12 @@ export default function NFTChecker(props: NFTCheckerProps) {
           {errorMessage}
         </Text>
       )}
+      {isLoading && (
+        <Text font={FONT_FILE} fontSize={0.1} color="red" position-z={0.001}>
+          Loading...
+        </Text>
+      )}
+      {!isOwner && <Image src={media} framed scale={1.5} />}
     </group>
   );
 }

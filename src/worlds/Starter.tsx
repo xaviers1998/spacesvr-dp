@@ -10,7 +10,7 @@ const Starter = () => {
       <group position={[0, 0.6, -1.5]}>
         <NFTGateway
           address="0x4baceed4951f29537559d8e203f95ac673f6d8e2"
-          chain="matic"
+          chain="POLY"
           media="https://i.imgur.com/54Njk5Y.jpeg"
         />
       </group>
